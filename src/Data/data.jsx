@@ -29,8 +29,8 @@ export const AdminMenu = [
         icon: 'fa-solid fa-house'
     },
     {
-        name: "Stylist",
-        path: "/stylist",
+        name: "Employees",
+        path: "/employees",
         icon: 'fa-solid fa-person'
     },
     {

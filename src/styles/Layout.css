@@ -82,9 +82,14 @@
 
 .header-content i {
   font-size: 1.2rem;
-  margin: 0 10px;
+  margin: 0 7px;
 }
 
 .header-content a{
   text-decoration: none;
+}
+
+.typography{
+  padding: 10px;
+  font-size: 28px;
 }

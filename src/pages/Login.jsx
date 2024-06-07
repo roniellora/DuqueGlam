@@ -13,7 +13,7 @@ const Login = () => {
       // Make a POST request to the provided URL with the form values as the request body
       dispatch(showLoading())
       const res = await axios.post(
-        "https://api-blond-pi.vercel.app/api/v1/users/login",
+        "https://api-zeta-ruby.vercel.app/api/v1/users/login",
         values
       );
 

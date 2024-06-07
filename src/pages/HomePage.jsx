@@ -7,7 +7,7 @@ const HomePage = () => {
   const getUserData = async () => {
     try {
       await axios.post(
-        "https://api-blond-pi.vercel.app/api/v1/users/getUserData",
+        "https://api-zeta-ruby.vercel.app/api/v1/users/getUserData",
         {},
         {
           headers: {

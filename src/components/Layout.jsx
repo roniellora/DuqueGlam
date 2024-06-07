@@ -3,7 +3,7 @@ import "../styles/Layout.css";
 import { AdminMenu, UserMenu } from "../Data/data";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { message } from "antd";
+import { Badge, message } from "antd";
 
 const Layout = ({ children }) => {
   const { user } = useSelector((state) => state.user);
@@ -53,7 +53,9 @@ const Layout = ({ children }) => {
           <div className="content">
             <div className="header">
               <div className="header-content">
-                <i className="fa-solid fa-bell"></i>
+                <Badge count={user?.notifications.lenght} className="mr-4">
+                  <i className="fa-solid fa-bell"></i>
+                </Badge>
                 <Link to="/profile">{user?.name}</Link>
               </div>
             </div>
