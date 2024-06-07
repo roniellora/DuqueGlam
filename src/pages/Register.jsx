@@ -18,11 +18,11 @@ const Register = () => {
       
       // If the request is successful, log a success message and the response to the console
       dispatch(hideLoading());
-      if(res.data.success) {
+      if(res.status === 200) {
         message.success("Registration successful");
         navigate("/login");
       }else {
-        message.error(res.data.message);
+        message.error("Registration failed");
       }
     } catch (error) {
       // If the request fails, log the error to the console and show an error message

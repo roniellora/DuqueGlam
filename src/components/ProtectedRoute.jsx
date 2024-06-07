@@ -1,14 +1,57 @@
 import { Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import { useSelector, useDispatch } from "react-redux";
+import { hideLoading, showLoading } from "../redux/features/alertSlice";
+import axios from "axios";
+import { useEffect } from "react";
+import { setUser } from "../redux/features/userSlice";
 
 export default function ProtectedRoute({ children }) {
-    if (localStorage.getItem("token")) {
-      return children;
-    }else{
-        return <Navigate to="/login"/>
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
+
+  //GET users
+  //eslint-disable-next-line
+  const getUser = async () => {
+    try {
+      dispatch(showLoading());
+      const res = await axios.post(
+        "https://api-blond-pi.vercel.app/api/v1/users/getUserData",
+        { token: localStorage.getItem("token")},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      dispatch(hideLoading());
+      if(res.data.success) {
+        dispatch(setUser(res.data.data))
+      }else{
+        <Navigate to="/login" />
+        localStorage.clear()
+      }
+    } catch (error) {
+      dispatch(hideLoading());
+      localStorage.clear()
+      console.log(error);
     }
+  };
+
+  useEffect(() => {
+    if(!user){
+      getUser()
+    }
+  }, [user, getUser])
+
+  if (localStorage.getItem("token")) {
+    return children;
+  } else {
+    return <Navigate to="/login" />;
+  }
 }
 
 ProtectedRoute.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };

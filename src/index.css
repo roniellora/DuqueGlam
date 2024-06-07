@@ -16,3 +16,7 @@
     z-index: 99999;
     background-color: rgba(0, 0, 0, 0.383);
 }
+
+::-webkit-scrollbar{
+    display: none;
+}
