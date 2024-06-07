@@ -11,12 +11,13 @@ const Layout = ({ children }) => {
   const navigate = useNavigate();
 
   //render menu list
-  const SidebarMenu = user?.isAdmin ? UserMenu : AdminMenu;
+  const SidebarMenu = user?.isAdmin ? AdminMenu : UserMenu;
 
   const handleLogout = () => {
     localStorage.clear();
     message.success("Logout successful");
     navigate("/login");
+    window.location.reload();
   };
 
   return (
