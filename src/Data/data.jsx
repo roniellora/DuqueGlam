@@ -30,12 +30,12 @@ export const AdminMenu = [
     },
     {
         name: "Employees",
-        path: "/employees",
+        path: "/admin/employees",
         icon: 'fa-solid fa-person'
     },
     {
         name: "Users",
-        path: "/users",
+        path: "/admin/users",
         icon: 'fa-solid fa-users'
     },
     {

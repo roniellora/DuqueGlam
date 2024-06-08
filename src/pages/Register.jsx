@@ -14,7 +14,7 @@ const Register = () => {
     try {
       // Make a POST request to the provided URL with the form values as the request body
       dispatch(showLoading()); 
-      const res = await axios.post("https://api-zeta-ruby.vercel.app/api/v1/users/register", values);
+      const res = await axios.post("https://api-lyart-gamma-50.vercel.app/api/v1/users/register", values);
       
       // If the request is successful, log a success message and the response to the console
       dispatch(hideLoading());

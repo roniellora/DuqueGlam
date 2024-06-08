@@ -15,7 +15,7 @@ const ApplyEmployee = () => {
     try {
       dispatch(showLoading());
       const res = await axios.post(
-        "https://api-zeta-ruby.vercel.app/api/v1/users/apply",
+        "https://api-lyart-gamma-50.vercel.app/api/v1/users/apply",
         { ...values, userId: user.id },
         {
           headers: {

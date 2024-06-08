@@ -10,8 +10,32 @@ const Layout = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  //EMPLOYEE MENU
+  const EmployeeMenu = [
+    {
+      name: "Home",
+      path: "/",
+      icon: "fa-solid fa-house",
+    },
+    {
+      name: "Appointment",
+      path: "/appointment",
+      icon: "fa-solid fa-list",
+    },
+    {
+      name: "Profile",
+      path: `/employee/profile/${user?._id}`,
+      icon: "fa-solid fa-user",
+    },
+  ];
+  //EMPLOYEE MENU
+
   //render menu list
-  const SidebarMenu = user?.isAdmin ? AdminMenu : UserMenu;
+  const SidebarMenu = user?.isAdmin
+    ? AdminMenu
+    : user?.isEmployee
+    ? EmployeeMenu
+    : UserMenu;
 
   const handleLogout = () => {
     localStorage.clear();
@@ -53,8 +77,17 @@ const Layout = ({ children }) => {
           <div className="content">
             <div className="header">
               <div className="header-content">
-                <Badge count={user?.notifications.lenght} className="mr-4">
-                  <i className="fa-solid fa-bell"></i>
+                <Badge
+                  count={user?.notifications.lenght}
+                  className="mr-4"
+                  onClick={() => {
+                    navigate("/notifications");
+                  }}
+                >
+                  <i
+                    className="fa-solid fa-bell"
+                    style={{ cursor: "pointer" }}
+                  ></i>
                 </Badge>
                 <Link to="/profile">{user?.name}</Link>
               </div>
