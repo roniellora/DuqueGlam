@@ -20,6 +20,9 @@ const EmployeeList = ({employee}) => {
             <p>
                 <b>Fee per Booking: </b> {employee.fee}
             </p>
+            <p>
+                <b>Timings: </b> {employee.timings[0]} - {employee.timings[1]}
+            </p>
         </div>
     </Card>
     </>
@@ -33,7 +36,8 @@ EmployeeList.propTypes = {
     lastName: PropTypes.string.isRequired,
     specialization: PropTypes.string.isRequired,
     experience: PropTypes.string.isRequired,
-    fee: PropTypes.string.isRequired
+    fee: PropTypes.string.isRequired,
+    timings: PropTypes.arrayOf(PropTypes.string).isRequired
   }).isRequired
 }
 

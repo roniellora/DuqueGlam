@@ -1,11 +1,21 @@
 import { useSelector, useDispatch } from "react-redux";
 import Layout from "../../components/Layout";
 import { useEffect, useState } from "react";
-import { Button, Col, Form, Input, Row, Typography, message } from "antd";
+import {
+  Button,
+  Col,
+  Form,
+  Input,
+  Row,
+  TimePicker,
+  Typography,
+  message,
+} from "antd";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { showLoading, hideLoading } from "../../redux/features/alertSlice";
+import moment from "moment";
 
 const Profile = () => {
   const { user } = useSelector((state) => state.user);
@@ -20,7 +30,14 @@ const Profile = () => {
       dispatch(showLoading());
       const res = await axios.post(
         "https://api-lyart-gamma-50.vercel.app/api/v1/employee/updateProfile",
-        { ...values, userId: user._id },
+        {
+          ...values,
+          userId: user._id,
+          timings: [
+            moment(values.timings[0]).format("HH:mm"),
+            moment(values.timings[1]).format("HH:mm"),
+          ],
+        },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -29,7 +46,7 @@ const Profile = () => {
       );
       dispatch(hideLoading());
       if (res.data.success) {
-        message.success('Profile updated!');
+        message.success("Profile updated!");
         navigate(`/employee/profile/${user._id}`);
       } else {
         message.error(res.data.success);
@@ -73,7 +90,18 @@ const Profile = () => {
         Profile
       </Typography>
       {employee && (
-        <Form layout="vertical" onFinish={handleFinish} className="m-3" initialValues={employee}>
+        <Form
+          layout="vertical"
+          onFinish={handleFinish}
+          className="m-3"
+          initialValues={{
+            ...employee,
+            timings: [
+              moment(employee.timings[0], "HH:mm"),
+              moment(employee.timings[1], "HH:mm"),
+            ],
+          }}
+        >
           <Typography className="font-bold" level={5}>
             Personal Details:
           </Typography>
@@ -169,8 +197,12 @@ const Profile = () => {
                 <Input placeholder="Fee per Booking" type="number" />
               </Form.Item>
             </Col>
+            <Col xs={24} md={24} lg={8}>
+              <Form.Item label="Timings" name="timings" required>
+                <TimePicker.RangePicker format="HH:mm" />
+              </Form.Item>
+            </Col>
 
-            <Col xs={24} md={24} lg={8}></Col>
             <Col xs={24} md={24} lg={8}></Col>
             <Col xs={24} md={24} lg={8} className="justify-flex-end">
               <Button type="primary" htmlType="submit" className="w-100 mt-3">

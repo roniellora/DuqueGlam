@@ -1,4 +1,13 @@
-import { Button, Col, Form, Input, Row, Typography, message } from "antd";
+import {
+  Button,
+  Col,
+  Form,
+  Input,
+  Row,
+  TimePicker,
+  Typography,
+  message,
+} from "antd";
 import Layout from "../components/Layout";
 import "../styles/Layout.css";
 import { useSelector, useDispatch } from "react-redux";
@@ -25,12 +34,14 @@ const ApplyEmployee = () => {
       );
       dispatch(hideLoading());
       if (res.data.success) {
-        message.success(res.data.success);
+        message.success("Application submitted successfully");
         navigate("/");
       } else {
+        dispatch(hideLoading());
         message.error(res.data.success);
       }
     } catch (error) {
+      dispatch(hideLoading());
       console.log(error);
       message.error("Something went wrong");
     }
@@ -137,7 +148,16 @@ const ApplyEmployee = () => {
             </Form.Item>
           </Col>
 
-          <Col xs={24} md={24} lg={8}></Col>
+          <Col xs={24} md={24} lg={8}>
+            <Form.Item
+              label="timings"
+              name="timings"
+              required
+            >
+              <TimePicker.RangePicker format="HH:mm"/>
+            </Form.Item>
+          </Col>
+
           <Col xs={24} md={24} lg={8}></Col>
           <Col xs={24} md={24} lg={8} className="justify-flex-end">
             <Button type="primary" htmlType="submit" className="w-100 mt-3">
