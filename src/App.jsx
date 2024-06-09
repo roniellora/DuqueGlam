@@ -12,6 +12,7 @@ import Notifications from "./pages/Notifications";
 import Employee from "./pages/admin/Employee";
 import Users from "./pages/admin/Users";
 import Profile from "./pages/employee/Profile";
+import BookingPage from "./pages/BookingPage";
 
 function App() {
   const { loading } = useSelector((state) => state.alert);
@@ -83,6 +84,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Profile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/employee/book-appointment/:employeeId"
+              element={
+                <ProtectedRoute>
+                  <BookingPage />
                 </ProtectedRoute>
               }
             />

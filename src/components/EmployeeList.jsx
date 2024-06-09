@@ -6,7 +6,7 @@ const EmployeeList = ({employee}) => {
     const navigate = useNavigate();
   return (
     <>
-    <Card onClick={() => navigate(`/book-appointment/${employee._id}`)} className="cursor-pointer ml-4">
+    <Card onClick={() => navigate(`/employee/book-appointment/${employee._id}`)} className="cursor-pointer ml-4">
         <div className="card-header">
             {employee.firstName} {employee.lastName}
         </div>
