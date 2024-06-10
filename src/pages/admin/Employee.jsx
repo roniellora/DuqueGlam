@@ -19,7 +19,6 @@ const Employee = () => {
       );
       if (res.status === 200) {
         setEmployees(res.data.data);
-        message.success("Succesfully fetch employees!");
       }
     } catch (error) {
       console.log(error);

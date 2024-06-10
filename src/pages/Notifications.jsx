@@ -1,20 +1,17 @@
 import { Card, Tabs, Typography, message } from "antd";
 import Layout from "../components/Layout";
-import { useDispatch, useSelector } from "react-redux";
-import { hideLoading, showLoading } from "../redux/features/alertSlice";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Notifications = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
 
   const handleMarkAsRead = async () => {
     try {
-      dispatch(showLoading());
       const res = await axios.post(
-        "/api/v1/users/notification",
+        "https://api-lyart-gamma-50.vercel.app/api/v1/users/notification",
         { userId: user._id },
         {
           headers: {
@@ -22,7 +19,6 @@ const Notifications = () => {
           },
         }
       );
-      dispatch(hideLoading());
       if (res.data.success) {
         message.success("All notifications marked as read");
         window.location.reload();
@@ -30,14 +26,12 @@ const Notifications = () => {
         message.error(res.data.success);
       }
     } catch (error) {
-      dispatch(hideLoading());
       console.log(error);
       message.error("Error marking notifications as read!");
     }
   };
   const handleDeleteAllRead = async () => {
     try {
-        dispatch(showLoading());
         const res = await axios.post('https://api-lyart-gamma-50.vercel.app/api/v1/users/notification-delete', { userId: user._id }, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -49,9 +43,7 @@ const Notifications = () => {
         } else{
             message.error(res.data.message);
         }
-        dispatch(hideLoading());
     } catch (error) {
-        dispatch(hideLoading());
         console.log(error);
         message.error("Error deleting notifications!");
     }

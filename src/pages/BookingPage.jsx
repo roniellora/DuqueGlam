@@ -1,4 +1,4 @@
-import { Button, DatePicker, TimePicker, Typography, message } from "antd";
+import { Button, DatePicker, Typography, message } from "antd";
 import Layout from "../components/Layout";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -12,8 +12,6 @@ const BookingPage = () => {
   const params = useParams();
   const [employee, setEmployee] = useState([]);
   const [date, setDate] = useState();
-  const [timings, setTimings] = useState();
-  //   const [isAvailable, setIsAvailable] = useState(false);
   const dispatch = useDispatch();
 
   const getUserData = async () => {
@@ -71,34 +69,6 @@ const BookingPage = () => {
     }
   };
 
-  //CHECK AVAILABILITY
-  const handleCheckAvailability = async () => {
-    try {
-      dispatch(showLoading());
-      const res = await axios.post(
-        "https://api-lyart-gamma-50.vercel.app/api/v1/users/check-availability",
-        {
-          employeeId: params.employeeId,
-          date: new Date(date).toISOString(),
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      if (res.status === 200) {
-        message.success(res.data.message);
-      } else {
-        message.error(res.data.message);
-      }
-      dispatch(hideLoading());
-    } catch (error) {
-      dispatch(hideLoading());
-      console.log(error.message);
-    }
-  };
-
   return (
     <Layout>
       <div className="container">
@@ -119,17 +89,6 @@ const BookingPage = () => {
                   setDate(moment(value).format("DD-MM-YYYY"))
                 }
               />
-              <TimePicker.RangePicker format="HH:mm" onChange={(value) => setTimings([
-                moment(value[0]).format("HH:mm"),
-                moment(value[1]).format("HH:mm")
-              ])}/>
-              <Button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                type="primary"
-                onClick={handleCheckAvailability}
-              >
-                Check Availability
-              </Button>
               <Button
                 className="bg-dark hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 type="primary"

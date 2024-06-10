@@ -19,7 +19,6 @@ const Users = () => {
       );
       if (res.status === 200) {
         setUsers(res.data.data);
-        message.success("Success fetching users!");
       } else {
         message.error("Error fetching users!");
       }
@@ -47,7 +46,7 @@ const Users = () => {
       title: "Employee",
       dataIndex: "isEmployee",
       render: (record) => 
-        <span>{record.isEmployee ? 'Yes' : 'No'}</span>
+        <span>{record.isEmployee ? 'Yes'  : 'No'}</span>
     },
     {
       title: "Actions",

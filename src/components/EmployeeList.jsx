@@ -21,7 +21,7 @@ const EmployeeList = ({employee}) => {
                 <b>Fee per Booking: </b> {employee.fee}
             </p>
             <p>
-                <b>Timings: </b> {employee.timings[0]} - {employee.timings[1]}
+                <b>Booking Hours: </b> {employee.timings[0]} - {employee.timings[1]}
             </p>
         </div>
     </Card>
